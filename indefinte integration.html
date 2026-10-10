@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indefinite Integration Presentation: Basic vs. f(mx) vs. f(mx+n) Forms & Integration by Parts</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f7f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #34495e;
+            padding-bottom: 10px;
+        }
+        .slide {
+            background: #fff;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 5px solid #3498db;
+        }
+        .slide-header {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .level {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .objective {
+            background-color: #f1f2f6;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .column {
+            padding: 18px;
+            border-radius: 6px;
+        }
+        .linear {
+            background-color: #ebf5fb;
+            border-top: 4px solid #2980b9;
+        }
+        .literal {
+            background-color: #f4ecf7;
+            border-top: 4px solid #8e44ad;
+        }
+        .column h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        /* MathType Base Formatting Styles */
+        .mt-math {
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .mt-equation {
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+            font-size: 1.15em;
+            background: rgba(255,255,255,0.95);
+            padding: 14px 16px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 12px 0;
+            border: 1px solid #dcdde1;
+            overflow-x: auto;
+        }
+        
+        /* MathType Standard Index Positioning Structure */
+        .mt-supsub {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            font-style: normal;
+            line-height: 1;
+            margin-left: 1px;
+            margin-right: 2px;
+        }
+        .mt-sup {
+            font-size: 0.75em;
+            font-style: italic;
+            vertical-align: super;
+            line-height: 0.8;
+            margin-bottom: 2px;
+        }
+        .mt-sub {
+            font-size: 0.75em;
+            font-style: italic;
+            vertical-align: sub;
+            line-height: 0.8;
+        }
+
+        /* MathType Fraction Format */
+        .mt-frac {
+            display: inline-flex;
+            flex-direction: column;
+            text-align: center;
+            vertical-align: middle;
+            padding: 0 4px;
+            font-style: normal;
+        }
+        .mt-num {
+            border-bottom: 1px solid #000;
+            padding: 0 3px 1px 3px;
+            font-style: italic;
+            line-height: 1.2;
+        }
+        .mt-den {
+            padding: 2px 3px 0 3px;
+            font-style: italic;
+            line-height: 1.2;
+        }
+
+        .steps {
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        .steps li {
+            margin-bottom: 12px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+        }
+        .golden-rule {
+            background-color: #fef9e7;
+            border-left: 4px solid #f1c40f;
+            padding: 12px 15px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        .example-box {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 10px 12px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Indefinite Integration: Fundamental Forms <span class="mt-math"><i>f</i>(<i>x</i>)</span> vs. <span class="mt-math"><i>f</i>(<i>mx</i>)</span> vs. <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span></h1>
+
+    <!-- Slide 1: Power Rule & Reciprocal Rule -->
+    <div class="slide">
+        <div class="slide-header">📊 Slide 1: Power Rule Functions</div>
+        <div class="level">Slide 1</div>
+        <div class="objective"><strong>🎯 Objective:</strong> Compare indefinite integration for algebraic power functions <span class="mt-math"><i>x</i><span class="mt-sup"><i>n</i></span></span> (<span class="mt-math"><i>n</i> &ne; &minus;1</span>) and <span class="mt-math"><i>x</i><span class="mt-sup">&minus;1</span></span> under linear differential transformations <span class="mt-math">d<i>x</i> = <span class="mt-frac"><span class="mt-num">d(<i>mx</i>)</span><span class="mt-den"><i>m</i></span></span></span> and <span class="mt-math">d<i>x</i> = <span class="mt-frac"><span class="mt-num">d(<i>mx</i> + <i>n</i>)</span><span class="mt-den"><i>m</i></span></span></span>.</div>
+        <div class="grid">
+            <div class="column linear">
+                <h3>🟢 Integration of Standard <span class="mt-math"><i>f</i>(<i>x</i>)</span></h3>
+                
+                <p><strong>1. Power Rule (<span class="mt-math"><i>n</i> &ne; &minus;1</span>):</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; <i>x</i><span class="mt-sup"><i>n</i></span> d<i>x</i> = <span class="mt-frac"><span class="mt-num"><i>x</i><span class="mt-sup"><i>n</i>+1</span></span><span class="mt-den"><i>n</i> + 1</span></span> + <i>C</i></span>
+                </div>
+                
+                <hr style="border: 0; border-top: 1px dashed #2980b9; margin: 15px 0;">
+
+                <p><strong>2. Reciprocal Function (<span class="mt-math"><i>n</i> = &minus;1</span>):</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; <i>x</i><span class="mt-sup">&minus;1</span> d<i>x</i> = &int; <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>x</i></span></span> d<i>x</i> = ln|<i>x</i>| + <i>C</i></span>
+                </div>
+            </div>
+
+            <div class="column literal">
+                <h3>🔵 Integration of Scaled <span class="mt-math"><i>f</i>(<i>mx</i>)</span> &amp; General Linear <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span></h3>
+                
+                <p><strong>1. Scaled Power Rule (<span class="mt-math"><i>n</i> &ne; &minus;1</span>):</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; (<i>mx</i>)<span class="mt-sup"><i>n</i></span> d<i>x</i> = <span class="mt-frac"><span class="mt-num">(<i>mx</i>)<span class="mt-sup"><i>n</i>+1</span></span><span class="mt-den"><i>m</i>(<i>n</i> + 1)</span></span> + <i>C</i></span>
+                </div>
+                
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; (<i>mx</i> + <i>n</i>)<span class="mt-sup"><i>k</i></span> d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> &int; (<i>mx</i> + <i>n</i>)<span class="mt-sup"><i>k</i></span> d(<i>mx</i> + <i>n</i>) = <span class="mt-frac"><span class="mt-num">(<i>mx</i> + <i>n</i>)<span class="mt-sup"><i>k</i>+1</span></span><span class="mt-den"><i>m</i>(<i>k</i> + 1)</span></span> + <i>C</i></span>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px dashed #8e44ad; margin: 15px 0;">
+
+                <p><strong>2. Scaled Reciprocal Function (<span class="mt-math"><i>n</i> = &minus;1</span>):</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; (<i>mx</i>)<span class="mt-sup">&minus;1</span> d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> ln|<i>mx</i>| + <i>C</i></span>
+                </div>
+                
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>mx</i> + <i>n</i></span></span> d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> &int; <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>mx</i> + <i>n</i></span></span> d(<i>mx</i> + <i>n</i>) = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> ln|<i>mx</i> + <i>n</i>| + <i>C</i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="golden-rule"><strong>💡 Golden Rule:</strong> Express <span class="mt-math">d<i>x</i> = <span class="mt-frac"><span class="mt-num">d(<i>mx</i> + <i>n</i>)</span><span class="mt-den"><i>m</i></span></span></span> to rewrite <span class="mt-math">&int; <i>f</i>(<i>mx</i> + <i>n</i>) d<i>x</i></span> as <span class="mt-math"><span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> &int; <i>f</i>(<i>mx</i> + <i>n</i>) d(<i>mx</i> + <i>n</i>) = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> <i>F</i>(<i>mx</i> + <i>n</i>) + <i>C</i></span>.</div>
+    </div>
+
+    <!-- Slide 2: Exponential & Basic Trigonometric Functions -->
+    <div class="slide">
+        <div class="slide-header">📊 Slide 2: Exponential, Sine, and Cosine Functions</div>
+        <div class="level">Slide 2</div>
+        <div class="objective"><strong>🎯 Objective:</strong> Evaluate antiderivatives of exponential, sine, and cosine functions for standard <span class="mt-math"><i>f</i>(<i>x</i>)</span>, scaled <span class="mt-math"><i>f</i>(<i>mx</i>)</span>, and linear composed <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> forms.</div>
+        <div class="grid">
+            <div class="column linear">
+                <h3>🟢 Integration of Standard <span class="mt-math"><i>f</i>(<i>x</i>)</span></h3>
+                
+                <p><strong>3. Exponential Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; e<span class="mt-sup"><i>x</i></span> d<i>x</i> = e<span class="mt-sup"><i>x</i></span> + <i>C</i></span>
+                </div>
+
+                <p><strong>4. Sine Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; sin <i>x</i> d<i>x</i> = &minus;cos <i>x</i> + <i>C</i></span>
+                </div>
+
+                <p><strong>5. Cosine Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; cos <i>x</i> d<i>x</i> = sin <i>x</i> + <i>C</i></span>
+                </div>
+            </div>
+
+            <div class="column literal">
+                <h3>🔵 Integration of Scaled <span class="mt-math"><i>f</i>(<i>mx</i>)</span> &amp; General Linear <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span></h3>
+                
+                <p><strong>3. Scaled Exponential Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; e<span class="mt-sup"><i>mx</i></span> d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> e<span class="mt-sup"><i>mx</i></span> + <i>C</i></span>
+                </div>
+
+                <p><strong>4. Scaled Sine Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; sin(<i>mx</i>) d<i>x</i> = &minus;<span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> cos(<i>mx</i>) + <i>C</i></span>
+                </div>
+
+                <p><strong>5. Scaled Cosine Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; cos(<i>mx</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> sin(<i>mx</i>) + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Examples:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; e<span class="mt-sup"><i>mx</i> + <i>n</i></span> d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> e<span class="mt-sup"><i>mx</i> + <i>n</i></span> + <i>C</i></span>
+                    </div>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; sin(<i>mx</i> + <i>n</i>) d<i>x</i> = &minus;<span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> cos(<i>mx</i> + <i>n</i>) + <i>C</i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="golden-rule"><strong>💡 Golden Rule:</strong> Express <span class="mt-math">d<i>x</i> = <span class="mt-frac"><span class="mt-num">d(<i>mx</i> + <i>n</i>)</span><span class="mt-den"><i>m</i></span></span></span> to rewrite <span class="mt-math">&int; <i>f</i>(<i>mx</i> + <i>n</i>) d<i>x</i></span> as <span class="mt-math"><span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> &int; <i>f</i>(<i>mx</i> + <i>n</i>) d(<i>mx</i> + <i>n</i>) = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> <i>F</i>(<i>mx</i> + <i>n</i>) + <i>C</i></span>.</div>
+    </div>
+
+    <!-- Slide 3: Tangent and Secant Functions -->
+    <div class="slide">
+        <div class="slide-header">📊 Slide 3: Tangent and Secant Functions</div>
+        <div class="level">Slide 3</div>
+        <div class="objective"><strong>🎯 Objective:</strong> Compare indefinite integrals of logarithmic-trigonometric forms <span class="mt-math">tan <i>x</i></span> and <span class="mt-math">sec <i>x</i></span> across standard, <span class="mt-math"><i>f</i>(<i>mx</i>)</span>, and <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> forms.</div>
+        <div class="grid">
+            <div class="column linear">
+                <h3>🟢 Integration of Standard <span class="mt-math"><i>f</i>(<i>x</i>)</span></h3>
+                
+                <p><strong>6. Tangent Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; tan <i>x</i> d<i>x</i> = ln|sec <i>x</i>| + <i>C</i></span>
+                </div>
+
+                <hr style="border: 0; border-top: 1px dashed #2980b9; margin: 15px 0;">
+
+                <p><strong>7. Secant Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; sec <i>x</i> d<i>x</i> = ln|sec <i>x</i> + tan <i>x</i>| + <i>C</i></span>
+                </div>
+            </div>
+
+            <div class="column literal">
+                <h3>🔵 Integration of Scaled <span class="mt-math"><i>f</i>(<i>mx</i>)</span> &amp; General Linear <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span></h3>
+                
+                <p><strong>6. Scaled Tangent Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; tan(<i>mx</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> ln|sec(<i>mx</i>)| + <i>C</i></span>
+                </div>
+                
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; tan(<i>mx</i> + <i>n</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> ln|sec(<i>mx</i> + <i>n</i>)| + <i>C</i></span>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px dashed #8e44ad; margin: 15px 0;">
+
+                <p><strong>7. Scaled Secant Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; sec(<i>mx</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> ln|sec(<i>mx</i>) + tan(<i>mx</i>)| + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; sec(<i>mx</i> + <i>n</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> ln|sec(<i>mx</i> + <i>n</i>) + tan(<i>mx</i> + <i>n</i>)| + <i>C</i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="golden-rule"><strong>💡 Golden Rule:</strong> Express <span class="mt-math">d<i>x</i> = <span class="mt-frac"><span class="mt-num">d(<i>mx</i> + <i>n</i>)</span><span class="mt-den"><i>m</i></span></span></span> to rewrite <span class="mt-math">&int; <i>f</i>(<i>mx</i> + <i>n</i>) d<i>x</i></span> as <span class="mt-math"><span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> &int; <i>f</i>(<i>mx</i> + <i>n</i>) d(<i>mx</i> + <i>n</i>) = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> <i>F</i>(<i>mx</i> + <i>n</i>) + <i>C</i></span>.</div>
+    </div>
+
+    <!-- Slide 4: Cosecant and Cotangent Functions -->
+    <div class="slide">
+        <div class="slide-header">📊 Slide 4: Cosecant and Cotangent Functions</div>
+        <div class="level">Slide 4</div>
+        <div class="objective"><strong>🎯 Objective:</strong> Compare indefinite integrals of reciprocal trigonometric forms <span class="mt-math">csc <i>x</i></span> and <span class="mt-math">cot <i>x</i></span> across standard, <span class="mt-math"><i>f</i>(<i>mx</i>)</span>, and <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> forms.</div>
+        <div class="grid">
+            <div class="column linear">
+                <h3>🟢 Integration of Standard <span class="mt-math"><i>f</i>(<i>x</i>)</span></h3>
+                
+                <p><strong>8. Cosecant Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; csc <i>x</i> d<i>x</i> = &minus;ln|csc <i>x</i> + cot <i>x</i>| + <i>C</i></span>
+                </div>
+
+                <hr style="border: 0; border-top: 1px dashed #2980b9; margin: 15px 0;">
+
+                <p><strong>9. Cotangent Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; cot <i>x</i> d<i>x</i> = ln|sin <i>x</i>| + <i>C</i></span>
+                </div>
+            </div>
+
+            <div class="column literal">
+                <h3>🔵 Integration of Scaled <span class="mt-math"><i>f</i>(<i>mx</i>)</span> &amp; General Linear <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span></h3>
+                
+                <p><strong>8. Scaled Cosecant Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; csc(<i>mx</i>) d<i>x</i> = &minus;<span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> ln|csc(<i>mx</i>) + cot(<i>mx</i>)| + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; csc(<i>mx</i> + <i>n</i>) d<i>x</i> = &minus;<span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> ln|csc(<i>mx</i> + <i>n</i>) + cot(<i>mx</i> + <i>n</i>)| + <i>C</i></span>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px dashed #8e44ad; margin: 15px 0;">
+
+                <p><strong>9. Scaled Cotangent Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; cot(<i>mx</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> ln|sin(<i>mx</i>)| + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; cot(<i>mx</i> + <i>n</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> ln|sin(<i>mx</i> + <i>n</i>)| + <i>C</i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="golden-rule"><strong>💡 Golden Rule:</strong> Express <span class="mt-math">d<i>x</i> = <span class="mt-frac"><span class="mt-num">d(<i>mx</i> + <i>n</i>)</span><span class="mt-den"><i>m</i></span></span></span> to rewrite <span class="mt-math">&int; <i>f</i>(<i>mx</i> + <i>n</i>) d<i>x</i></span> as <span class="mt-math"><span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> &int; <i>f</i>(<i>mx</i> + <i>n</i>) d(<i>mx</i> + <i>n</i>) = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> <i>F</i>(<i>mx</i> + <i>n</i>) + <i>C</i></span>.</div>
+    </div>
+
+    <!-- Slide 5: Squared Sine and Cosine Functions -->
+    <div class="slide">
+        <div class="slide-header">📊 Slide 5: Squared Sine and Cosine Functions</div>
+        <div class="level">Slide 5</div>
+        <div class="objective"><strong>🎯 Objective:</strong> Evaluate integrals of <span class="mt-math">sin<span class="mt-sup">2</span><i>x</i></span> and <span class="mt-math">cos<span class="mt-sup">2</span><i>x</i></span> using double-angle identities across standard, <span class="mt-math"><i>f</i>(<i>mx</i>)</span>, and <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> forms.</div>
+        <div class="grid">
+            <div class="column linear">
+                <h3>🟢 Integration of Standard <span class="mt-math"><i>f</i>(<i>x</i>)</span></h3>
+                
+                <p><strong>10. Squared Sine Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; sin<span class="mt-sup">2</span><i>x</i> d<i>x</i> = &int; <span class="mt-frac"><span class="mt-num">1 &minus; cos(2<i>x</i>)</span><span class="mt-den">2</span></span> d<i>x</i> = <span class="mt-frac"><span class="mt-num"><i>x</i></span><span class="mt-den">2</span></span> &minus; <span class="mt-frac"><span class="mt-num">sin(2<i>x</i>)</span><span class="mt-den">4</span></span> + <i>C</i></span>
+                </div>
+
+                <hr style="border: 0; border-top: 1px dashed #2980b9; margin: 15px 0;">
+
+                <p><strong>11. Squared Cosine Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; cos<span class="mt-sup">2</span><i>x</i> d<i>x</i> = &int; <span class="mt-frac"><span class="mt-num">1 + cos(2<i>x</i>)</span><span class="mt-den">2</span></span> d<i>x</i> = <span class="mt-frac"><span class="mt-num"><i>x</i></span><span class="mt-den">2</span></span> + <span class="mt-frac"><span class="mt-num">sin(2<i>x</i>)</span><span class="mt-den">4</span></span> + <i>C</i></span>
+                </div>
+            </div>
+
+            <div class="column literal">
+                <h3>🔵 Integration of Scaled <span class="mt-math"><i>f</i>(<i>mx</i>)</span> &amp; General Linear <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span></h3>
+                
+                <p><strong>10. Scaled Squared Sine Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; sin<span class="mt-sup">2</span>(<i>mx</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num"><i>x</i></span><span class="mt-den">2</span></span> &minus; <span class="mt-frac"><span class="mt-num">sin(2<i>mx</i>)</span><span class="mt-den">4<i>m</i></span></span> + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; sin<span class="mt-sup">2</span>(<i>mx</i> + <i>n</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num"><i>x</i></span><span class="mt-den">2</span></span> &minus; <span class="mt-frac"><span class="mt-num">sin(2<i>mx</i> + 2<i>n</i>)</span><span class="mt-den">4<i>m</i></span></span> + <i>C</i></span>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px dashed #8e44ad; margin: 15px 0;">
+
+                <p><strong>11. Scaled Squared Cosine Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; cos<span class="mt-sup">2</span>(<i>mx</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num"><i>x</i></span><span class="mt-den">2</span></span> + <span class="mt-frac"><span class="mt-num">sin(2<i>mx</i>)</span><span class="mt-den">4<i>m</i></span></span> + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; cos<span class="mt-sup">2</span>(<i>mx</i> + <i>n</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num"><i>x</i></span><span class="mt-den">2</span></span> + <span class="mt-frac"><span class="mt-num">sin(2<i>mx</i> + 2<i>n</i>)</span><span class="mt-den">4<i>m</i></span></span> + <i>C</i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="golden-rule"><strong>💡 Golden Rule:</strong> Use double-angle reduction formulas <span class="mt-math">sin<span class="mt-sup">2</span>&theta; = <span class="mt-frac"><span class="mt-num">1 &minus; cos(2&theta;)</span><span class="mt-den">2</span></span></span> and <span class="mt-math">cos<span class="mt-sup">2</span>&theta; = <span class="mt-frac"><span class="mt-num">1 + cos(2&theta;)</span><span class="mt-den">2</span></span></span> before applying the differential substitution <span class="mt-math">d<i>x</i> = <span class="mt-frac"><span class="mt-num">d(<i>mx</i> + <i>n</i>)</span><span class="mt-den"><i>m</i></span></span></span>.</div>
+    </div>
+
+    <!-- Slide 6: Squared Tangent and Secant Functions -->
+    <div class="slide">
+        <div class="slide-header">📊 Slide 6: Squared Tangent and Secant Functions</div>
+        <div class="level">Slide 6</div>
+        <div class="objective"><strong>🎯 Objective:</strong> Evaluate integrals of <span class="mt-math">tan<span class="mt-sup">2</span><i>x</i></span> and <span class="mt-math">sec<span class="mt-sup">2</span><i>x</i></span> using Pythagorean identity transformations across standard, <span class="mt-math"><i>f</i>(<i>mx</i>)</span>, and <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> forms.</div>
+        <div class="grid">
+            <div class="column linear">
+                <h3>🟢 Integration of Standard <span class="mt-math"><i>f</i>(<i>x</i>)</span></h3>
+                
+                <p><strong>12. Squared Tangent Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; tan<span class="mt-sup">2</span><i>x</i> d<i>x</i> = &int; (sec<span class="mt-sup">2</span><i>x</i> &minus; 1) d<i>x</i> = tan <i>x</i> &minus; <i>x</i> + <i>C</i></span>
+                </div>
+
+                <hr style="border: 0; border-top: 1px dashed #2980b9; margin: 15px 0;">
+
+                <p><strong>13. Squared Secant Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; sec<span class="mt-sup">2</span><i>x</i> d<i>x</i> = tan <i>x</i> + <i>C</i></span>
+                </div>
+            </div>
+
+            <div class="column literal">
+                <h3>🔵 Integration of Scaled <span class="mt-math"><i>f</i>(<i>mx</i>)</span> &amp; General Linear <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span></h3>
+                
+                <p><strong>12. Scaled Squared Tangent Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; tan<span class="mt-sup">2</span>(<i>mx</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> tan(<i>mx</i>) &minus; <i>x</i> + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; tan<span class="mt-sup">2</span>(<i>mx</i> + <i>n</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> tan(<i>mx</i> + <i>n</i>) &minus; <i>x</i> + <i>C</i></span>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px dashed #8e44ad; margin: 15px 0;">
+
+                <p><strong>13. Scaled Squared Secant Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; sec<span class="mt-sup">2</span>(<i>mx</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> tan(<i>mx</i>) + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; sec<span class="mt-sup">2</span>(<i>mx</i> + <i>n</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> tan(<i>mx</i> + <i>n</i>) + <i>C</i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="golden-rule"><strong>💡 Golden Rule:</strong> Rewrite <span class="mt-math">tan<span class="mt-sup">2</span>&theta; = sec<span class="mt-sup">2</span>&theta; &minus; 1</span> to integrate directly via <span class="mt-math">&int; sec<span class="mt-sup">2</span>(<i>mx</i> + <i>n</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> tan(<i>mx</i> + <i>n</i>) + <i>C</i></span>.</div>
+    </div>
+
+    <!-- Slide 7: Squared Cosecant and Cotangent Functions -->
+    <div class="slide">
+        <div class="slide-header">📊 Slide 7: Squared Cosecant and Cotangent Functions</div>
+        <div class="level">Slide 7</div>
+        <div class="objective"><strong>🎯 Objective:</strong> Evaluate integrals of <span class="mt-math">csc<span class="mt-sup">2</span><i>x</i></span> and <span class="mt-math">cot<span class="mt-sup">2</span><i>x</i></span> using reciprocal Pythagorean identities across standard, <span class="mt-math"><i>f</i>(<i>mx</i>)</span>, and <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> forms.</div>
+        <div class="grid">
+            <div class="column linear">
+                <h3>🟢 Integration of Standard <span class="mt-math"><i>f</i>(<i>x</i>)</span></h3>
+                
+                <p><strong>14. Squared Cosecant Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; csc<span class="mt-sup">2</span><i>x</i> d<i>x</i> = &minus;cot <i>x</i> + <i>C</i></span>
+                </div>
+
+                <hr style="border: 0; border-top: 1px dashed #2980b9; margin: 15px 0;">
+
+                <p><strong>15. Squared Cotangent Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; cot<span class="mt-sup">2</span><i>x</i> d<i>x</i> = &int; (csc<span class="mt-sup">2</span><i>x</i> &minus; 1) d<i>x</i> = &minus;cot <i>x</i> &minus; <i>x</i> + <i>C</i></span>
+                </div>
+            </div>
+
+            <div class="column literal">
+                <h3>🔵 Integration of Scaled <span class="mt-math"><i>f</i>(<i>mx</i>)</span> &amp; General Linear <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span></h3>
+                
+                <p><strong>14. Scaled Squared Cosecant Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; csc<span class="mt-sup">2</span>(<i>mx</i>) d<i>x</i> = &minus;<span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> cot(<i>mx</i>) + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; csc<span class="mt-sup">2</span>(<i>mx</i> + <i>n</i>) d<i>x</i> = &minus;<span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> cot(<i>mx</i> + <i>n</i>) + <i>C</i></span>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px dashed #8e44ad; margin: 15px 0;">
+
+                <p><strong>15. Scaled Squared Cotangent Function:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; cot<span class="mt-sup">2</span>(<i>mx</i>) d<i>x</i> = &minus;<span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> cot(<i>mx</i>) &minus; <i>x</i> + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; cot<span class="mt-sup">2</span>(<i>mx</i> + <i>n</i>) d<i>x</i> = &minus;<span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> cot(<i>mx</i> + <i>n</i>) &minus; <i>x</i> + <i>C</i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="golden-rule"><strong>💡 Golden Rule:</strong> Rewrite <span class="mt-math">cot<span class="mt-sup">2</span>&theta; = csc<span class="mt-sup">2</span>&theta; &minus; 1</span> to integrate directly via <span class="mt-math">&int; csc<span class="mt-sup">2</span>(<i>mx</i> + <i>n</i>) d<i>x</i> = &minus;<span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>m</i></span></span> cot(<i>mx</i> + <i>n</i>) + <i>C</i></span>.</div>
+    </div>
+
+    <!-- Slide 8: Integration by Parts - Repeated Algebraic-Exponential & Logarithmic Forms -->
+    <div class="slide">
+        <div class="slide-header">📊 Slide 8: Integration by Parts — <span class="mt-math"><i>x</i><span class="mt-sup">2</span>e<span class="mt-sup"><i>x</i></span></span> and <span class="mt-math"><i>x</i><span class="mt-sup">2</span> ln <i>x</i></span></div>
+        <div class="level">Slide 8</div>
+        <div class="objective"><strong>🎯 Objective:</strong> Apply integration by parts <span class="mt-math">&int; <i>u</i> d<i>v</i> = <i>u</i><i>v</i> &minus; &int; <i>v</i> d<i>u</i></span> across standard, <span class="mt-math"><i>f</i>(<i>mx</i>)</span>, and <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> configurations.</div>
+        <div class="grid">
+            <div class="column linear">
+                <h3>🟢 Repeated Parts: <span class="mt-math"><i>x</i><span class="mt-sup">2</span>e<span class="mt-sup"><i>x</i></span></span></h3>
+                
+                <p><strong>16. Standard Form <span class="mt-math">&int; <i>x</i><span class="mt-sup">2</span>e<span class="mt-sup"><i>x</i></span> d<i>x</i></span>:</strong></p>
+                <ul class="steps">
+                    <li>Pass 1: Let <span class="mt-math"><i>u</i> = <i>x</i><span class="mt-sup">2</span>, d<i>v</i> = e<span class="mt-sup"><i>x</i></span> d<i>x</i> &rArr; d<i>u</i> = 2<i>x</i> d<i>x</i>, <i>v</i> = e<span class="mt-sup"><i>x</i></span></span>
+                        <br><span class="mt-math">&int; <i>x</i><span class="mt-sup">2</span>e<span class="mt-sup"><i>x</i></span> d<i>x</i> = <i>x</i><span class="mt-sup">2</span>e<span class="mt-sup"><i>x</i></span> &minus; 2 &int; <i>x</i>e<span class="mt-sup"><i>x</i></span> d<i>x</i></span>
+                    </li>
+                    <li>Pass 2: Let <span class="mt-math"><i>u</i> = <i>x</i>, d<i>v</i> = e<span class="mt-sup"><i>x</i></span> d<i>x</i> &rArr; d<i>u</i> = d<i>x</i>, <i>v</i> = e<span class="mt-sup"><i>x</i></span></span>
+                        <br><span class="mt-math">= <i>x</i><span class="mt-sup">2</span>e<span class="mt-sup"><i>x</i></span> &minus; 2(<i>x</i>e<span class="mt-sup"><i>x</i></span> &minus; e<span class="mt-sup"><i>x</i></span>) + <i>C</i> = e<span class="mt-sup"><i>x</i></span>(<i>x</i><span class="mt-sup">2</span> &minus; 2<i>x</i> + 2) + <i>C</i></span>
+                    </li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed #2980b9; margin: 15px 0;">
+
+                <p><strong>Scaled Form <span class="mt-math">&int; <i>x</i><span class="mt-sup">2</span>e<span class="mt-sup"><i>mx</i></span> d<i>x</i></span>:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; <i>x</i><span class="mt-sup">2</span>e<span class="mt-sup"><i>mx</i></span> d<i>x</i> = <span class="mt-frac"><span class="mt-num">e<span class="mt-sup"><i>mx</i></span></span><span class="mt-den"><i>m</i></span></span> ( <i>x</i><span class="mt-sup">2</span> &minus; <span class="mt-frac"><span class="mt-num">2<i>x</i></span><span class="mt-den"><i>m</i></span></span> + <span class="mt-frac"><span class="mt-num">2</span><span class="mt-den"><i>m</i><span class="mt-sup">2</span></span></span> ) + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; <i>x</i><span class="mt-sup">2</span>e<span class="mt-sup"><i>mx</i> + <i>n</i></span> d<i>x</i> = <span class="mt-frac"><span class="mt-num">e<span class="mt-sup"><i>mx</i> + <i>n</i></span></span><span class="mt-den"><i>m</i></span></span> ( <i>x</i><span class="mt-sup">2</span> &minus; <span class="mt-frac"><span class="mt-num">2<i>x</i></span><span class="mt-den"><i>m</i></span></span> + <span class="mt-frac"><span class="mt-num">2</span><span class="mt-den"><i>m</i><span class="mt-sup">2</span></span></span> ) + <i>C</i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column literal">
+                <h3>🔵 Logarithmic Parts: <span class="mt-math"><i>x</i><span class="mt-sup">2</span> ln <i>x</i></span></h3>
+                
+                <p><strong>17. Standard Form <span class="mt-math">&int; <i>x</i><span class="mt-sup">2</span> ln <i>x</i> d<i>x</i></span>:</strong></p>
+                <ul class="steps">
+                    <li>Let <span class="mt-math"><i>u</i> = ln <i>x</i>, d<i>v</i> = <i>x</i><span class="mt-sup">2</span> d<i>x</i> &rArr; d<i>u</i> = <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>x</i></span></span> d<i>x</i>, <i>v</i> = <span class="mt-frac"><span class="mt-num"><i>x</i><span class="mt-sup">3</span></span><span class="mt-den">3</span></span></span>
+                        <br><span class="mt-math">&int; <i>x</i><span class="mt-sup">2</span> ln <i>x</i> d<i>x</i> = <span class="mt-frac"><span class="mt-num"><i>x</i><span class="mt-sup">3</span></span><span class="mt-den">3</span></span> ln <i>x</i> &minus; &int; <span class="mt-frac"><span class="mt-num"><i>x</i><span class="mt-sup">3</span></span><span class="mt-den">3</span></span> &middot; <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den"><i>x</i></span></span> d<i>x</i></span>
+                    </li>
+                    <li>Simplify and integrate remaining term:
+                        <br><span class="mt-math">= <span class="mt-frac"><span class="mt-num"><i>x</i><span class="mt-sup">3</span></span><span class="mt-den">3</span></span> ln <i>x</i> &minus; <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den">3</span></span> &int; <i>x</i><span class="mt-sup">2</span> d<i>x</i> = <span class="mt-frac"><span class="mt-num"><i>x</i><span class="mt-sup">3</span></span><span class="mt-den">3</span></span> ln <i>x</i> &minus; <span class="mt-frac"><span class="mt-num"><i>x</i><span class="mt-sup">3</span></span><span class="mt-den">9</span></span> + <i>C</i></span>
+                    </li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px dashed #8e44ad; margin: 15px 0;">
+
+                <p><strong>Scaled Form <span class="mt-math">&int; <i>x</i><span class="mt-sup">2</span> ln(<i>mx</i>) d<i>x</i></span>:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; <i>x</i><span class="mt-sup">2</span> ln(<i>mx</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num"><i>x</i><span class="mt-sup">3</span></span><span class="mt-den">3</span></span> ln(<i>mx</i>) &minus; <span class="mt-frac"><span class="mt-num"><i>x</i><span class="mt-sup">3</span></span><span class="mt-den">9</span></span> + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; <i>x</i><span class="mt-sup">2</span> ln(<i>mx</i> + <i>n</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num"><i>x</i><span class="mt-sup">3</i></span><span class="mt-den">3</span></span> ln(<i>mx</i> + <i>n</i>) &minus; <span class="mt-frac"><span class="mt-num">1</span><span class="mt-den">3</span></span> &int; <span class="mt-frac"><span class="mt-num"><i>m</i><i>x</i><span class="mt-sup">3</span></span><span class="mt-den"><i>mx</i> + <i>n</i></span></span> d<i>x</i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="golden-rule"><strong>💡 Golden Rule:</strong> For polynomial-exponential products <span class="mt-math"><i>P</i>(<i>x</i>)e<span class="mt-sup"><i>mx</i></span></span>, differentiate the polynomial until zero; for logarithmic products <span class="mt-math"><i>P</i>(<i>x</i>) ln(<i>mx</i>)</span>, set <span class="mt-math"><i>u</i> = ln(<i>mx</i>)</span> to eliminate the logarithm via differentiation.</div>
+    </div>
+
+    <!-- Slide 9: Integration by Parts - Cyclic Exponential-Trigonometric Forms -->
+    <div class="slide">
+        <div class="slide-header">📊 Slide 9: Integration by Parts — Cyclic <span class="mt-math">e<span class="mt-sup"><i>x</i></span> sin <i>x</i></span></div>
+        <div class="level">Slide 9</div>
+        <div class="objective"><strong>🎯 Objective:</strong> Solve cyclical integrals where integration by parts yields a multiple of the original integral <span class="mt-math"><i>I</i></span>.</div>
+        <div class="grid">
+            <div class="column linear">
+                <h3>🟢 Standard Cyclic Integral</h3>
+                
+                <p><strong>18. Standard Form <span class="mt-math"><i>I</i> = &int; e<span class="mt-sup"><i>x</i></span> sin <i>x</i> d<i>x</i></span>:</strong></p>
+                <ul class="steps">
+                    <li>Pass 1: Let <span class="mt-math"><i>u</i> = sin <i>x</i>, d<i>v</i> = e<span class="mt-sup"><i>x</i></span> d<i>x</i> &rArr; d<i>u</i> = cos <i>x</i> d<i>x</i>, <i>v</i> = e<span class="mt-sup"><i>x</i></span></span>
+                        <br><span class="mt-math"><i>I</i> = e<span class="mt-sup"><i>x</i></span> sin <i>x</i> &minus; &int; e<span class="mt-sup"><i>x</i></span> cos <i>x</i> d<i>x</i></span>
+                    </li>
+                    <li>Pass 2: Let <span class="mt-math"><i>u</i> = cos <i>x</i>, d<i>v</i> = e<span class="mt-sup"><i>x</i></span> d<i>x</i> &rArr; d<i>u</i> = &minus;sin <i>x</i> d<i>x</i>, <i>v</i> = e<span class="mt-sup"><i>x</i></span></span>
+                        <br><span class="mt-math"><i>I</i> = e<span class="mt-sup"><i>x</i></span> sin <i>x</i> &minus; (e<span class="mt-sup"><i>x</i></span> cos <i>x</i> &plus; &int; e<span class="mt-sup"><i>x</i></span> sin <i>x</i> d<i>x</i>)</span>
+                        <br><span class="mt-math"><i>I</i> = e<span class="mt-sup"><i>x</i></span> sin <i>x</i> &minus; e<span class="mt-sup"><i>x</i></span> cos <i>x</i> &minus; <i>I</i></span>
+                    </li>
+                    <li>Solve algebraically for <span class="mt-math"><i>I</i></span>:
+                        <br><span class="mt-math">2<i>I</i> = e<span class="mt-sup"><i>x</i></span>(sin <i>x</i> &minus; cos <i>x</i>) &rArr; <i>I</i> = <span class="mt-frac"><span class="mt-num">e<span class="mt-sup"><i>x</i></span></span><span class="mt-den">2</span></span>(sin <i>x</i> &minus; cos <i>x</i>) + <i>C</i></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="column literal">
+                <h3>🔵 Scaled &amp; Linear Cyclic Integrals</h3>
+                
+                <p><strong>Scaled Form <span class="mt-math">&int; e<span class="mt-sup"><i>mx</i></span> sin(<i>mx</i>) d<i>x</i></span>:</strong></p>
+                <div class="mt-equation">
+                    <span class="mt-math">&int; e<span class="mt-sup"><i>mx</i></span> sin(<i>mx</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">e<span class="mt-sup"><i>mx</i></span></span><span class="mt-den">2<i>m</i></span></span> [ sin(<i>mx</i>) &minus; cos(<i>mx</i>) ] + <i>C</i></span>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Linear Form <span class="mt-math"><i>f</i>(<i>mx</i> + <i>n</i>)</span> Example:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; e<span class="mt-sup"><i>mx</i> + <i>n</i></span> sin(<i>mx</i> + <i>n</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">e<span class="mt-sup"><i>mx</i> + <i>n</i></span></span><span class="mt-den">2<i>m</i></span></span> [ sin(<i>mx</i> + <i>n</i>) &minus; cos(<i>mx</i> + <i>n</i>) ] + <i>C</i></span>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 General Two-Frequency Form <span class="mt-math">&int; e<span class="mt-sup"><i>ax</i></span> sin(<i>bx</i>) d<i>x</i></span>:</strong>
+                    <div class="mt-equation">
+                        <span class="mt-math">&int; e<span class="mt-sup"><i>ax</i></span> sin(<i>bx</i>) d<i>x</i> = <span class="mt-frac"><span class="mt-num">e<span class="mt-sup"><i>ax</i></span></span><span class="mt-den"><i>a</i><span class="mt-sup">2</span> + <i>b</i><span class="mt-sup">2</span></span></span> [ <i>a</i> sin(<i>bx</i>) &minus; <i>b</i> cos(<i>bx</i>) ] + <i>C</i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="golden-rule"><strong>💡 Golden Rule:</strong> When integration by parts yields a repeating integral <span class="mt-math">&minus;<i>I</i></span>, collect all terms containing <span class="mt-math"><i>I</i></span> on one side and divide by the coefficient factor to solve for the final antiderivative.</div>
+    </div>
+
+</body>
+</html>
